@@ -8,7 +8,7 @@ void chatterCallback(const std_msgs::String::ConstPtr& msg)
 
 int main(int argc, char **argv)
 {
-        ros::init(argc, argv, "range_sim");
+        ros::init(argc, argv, "master");
         ros::NodeHandle n;
 
         ros::Subscriber sub = n.subscribe("US_range", 1000, chatterCallback);

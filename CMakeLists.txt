@@ -129,14 +129,14 @@ include_directories(
 # add_dependencies(was_sim ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(range_sim src/range_sim.cpp)
+add_executable(master_sim src/master_sim.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(was_sim_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(range_sim
+target_link_libraries(master_sim
   ${catkin_LIBRARIES}
 )
 

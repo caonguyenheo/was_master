@@ -11,7 +11,7 @@ int main(int argc, char **argv)
         ros::init(argc, argv, "range_sim");
         ros::NodeHandle n;
 
-        ros::Subscriber sub = n.subscribe("WI_range", 1000, chatterCallback);
+        ros::Subscriber sub = n.subscribe("US_range", 1000, chatterCallback);
         ros::spin();
         
         return 0;

@@ -4,13 +4,12 @@
 
 void sensorCallBack(const sensor_msgs::Range::ConstPtr& msg)
 {
-//        ROS_INFO("I heard: [%s]", msg->data.c_str());
+        ROS_INFO("I heard: [%.2f]", msg->range);
 
 }
 
 int main(int argc, char **argv)
 {
-        boost::shared_ptr<std_msgs::String> range_msg;
         ros::init(argc, argv, "master");
 
         ros::NodeHandle masterNode;

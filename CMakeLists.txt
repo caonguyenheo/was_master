@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   sensor_msgs
   std_msgs
+  geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -130,6 +131,7 @@ include_directories(
 
 ## Declare a C++ executable
 add_executable(master_sim src/master_sim.cpp)
+add_executable(teleop src/teleop.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -137,6 +139,10 @@ add_executable(master_sim src/master_sim.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(master_sim
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(teleop
   ${catkin_LIBRARIES}
 )
 

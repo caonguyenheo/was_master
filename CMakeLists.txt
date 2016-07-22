@@ -115,6 +115,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -129,8 +130,13 @@ include_directories(
 # add_dependencies(was_master ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(master src/master.cpp)
-add_executable(teleop src/teleop.cpp)
+add_executable(master
+		src/was_master.cpp
+		src/master.cpp
+	)
+add_executable(teleop
+		src/teleop.cpp
+	)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above

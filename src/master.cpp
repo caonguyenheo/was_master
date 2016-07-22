@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
         ros::init(argc, argv, "master");
 
         was_master wasMaster = was_master();
+        wasMaster.
 
         ros::spin();
         

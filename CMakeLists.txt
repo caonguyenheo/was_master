@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(was_sim)
+project(was_master)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -102,7 +102,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES was_sim
+#  LIBRARIES was_master
 #  CATKIN_DEPENDS roscpp rospy sensor_msgs std_msgs
 #  DEPENDS system_lib
 )
@@ -119,25 +119,25 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(was_sim
-#   src/${PROJECT_NAME}/was_sim.cpp
+# add_library(was_master
+#   src/${PROJECT_NAME}/was_master.cpp
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(was_sim ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(was_master ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(master_sim src/master_sim.cpp)
+add_executable(master src/master.cpp)
 add_executable(teleop src/teleop.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(was_sim_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(was_master_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(master_sim
+target_link_libraries(master
   ${catkin_LIBRARIES}
 )
 
@@ -160,7 +160,7 @@ target_link_libraries(teleop
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS was_sim was_sim_node
+# install(TARGETS was_master was_master_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -185,7 +185,7 @@ target_link_libraries(teleop
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_was_sim.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_was_master.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

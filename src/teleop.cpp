@@ -10,11 +10,11 @@
 #define KEYCODE_FORWARD         0x77    // W
 #define KEYCODE_BACKWARD        0x73    // S
 
-// For lifting
+// For lift
 #define KEYCODE_UP              0x65    // E
 #define KEYCODE_DOWN            0x63    // C
 
-// For both lifting and moving
+// For both lift and moving
 #define KEYCODE_STOP            0x20    // SPACE
 
 class was_teleop
@@ -28,14 +28,14 @@ private:
 
         ros::NodeHandle nh_;
         ros::Publisher movement_pub_;
-        ros::Publisher lifting_pub_;
+        ros::Publisher lift_pub_;
 
 };
 
 was_teleop::was_teleop()
 {
-        movement_pub_ = nh_.advertise<std_msgs::String>("was_control/moving", 1);
-        lifting_pub_ = nh_.advertise<std_msgs::String>("was_control/lifting", 1);
+        movement_pub_ = nh_.advertise<std_msgs::String>("was_control/movement", 1);
+        lift_pub_ = nh_.advertise<std_msgs::String>("was_control/lift", 1);
 }
 
 int kfd = 0;
@@ -83,8 +83,8 @@ void was_teleop::keyLoop()
         puts("---------------------------");
         puts("Use arrow keys to move the turtle.");
 
-        std::string moving_cmd;
-        std::string lifting_cmd;
+        std::string movement_cmd;
+        std::string lift_cmd;
         while(1)
         {
                 // get the next event from the keyboard
@@ -102,37 +102,37 @@ void was_teleop::keyLoop()
                 {
                         case KEYCODE_LEFT:
                                 ROS_DEBUG("LEFT");
-                                moving_cmd = "LEFT";
+                                movement_cmd = "LEFT";
                                 is_moving = true;
                                 break;
                         case KEYCODE_RIGHT:
                                 ROS_DEBUG("RIGHT");
-                                moving_cmd = "RIGHT";
+                                movement_cmd = "RIGHT";
                                 is_moving = true;
                                 break;
                         case KEYCODE_FORWARD:
                                 ROS_DEBUG("FORWARD");
-                                moving_cmd = "FORWARD";
+                                movement_cmd = "FORWARD";
                                 is_moving = true;
                                 break;
                         case KEYCODE_BACKWARD:
                                 ROS_DEBUG("BACKWARD");
-                                moving_cmd = "BACKWARD";
+                                movement_cmd = "BACKWARD";
                                 is_moving = true;
                                 break;
                         case KEYCODE_UP:
                                 ROS_DEBUG("LIFT_UP");
-                                lifting_cmd = "LIFT_UP";
+                                lift_cmd = "LIFT_UP";
                                 is_lifting = true;
                                 break;
                         case KEYCODE_DOWN:
                                 ROS_DEBUG("LIFT_DOWN");
-                                lifting_cmd = "LIFT_DOWN";
+                                lift_cmd = "LIFT_DOWN";
                                 is_lifting = true;
                                 break;
                         case KEYCODE_STOP:
                                 ROS_DEBUG("STOP");
-                                moving_cmd = "STOP";
+                                movement_cmd = "STOP";
                                 is_moving = true;
                                 is_lifting = true;
                                 break;
@@ -141,14 +141,14 @@ void was_teleop::keyLoop()
 
                 if (is_moving) {
                         std_msgs::String cmd;
-                        cmd.data = moving_cmd;
+                        cmd.data = movement_cmd;
                         movement_pub_.publish(cmd);
                         is_moving=false;
                 }
                 if (is_lifting) {
                         std_msgs::String cmd;
-                        cmd.data = lifting_cmd;
-                        lifting_pub_.publish(cmd);
+                        cmd.data = lift_cmd;
+                        lift_pub_.publish(cmd);
                         is_lifting=false;
                 }
         }

@@ -130,7 +130,7 @@ include_directories(
 # add_dependencies(was_master ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(master
+add_executable(was_master
 		src/was_master.cpp
 		src/master.cpp
 	)

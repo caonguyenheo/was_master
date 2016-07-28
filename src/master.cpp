@@ -5,10 +5,10 @@ was_master::was_master(void) {
                                          1000, &was_master::range_cb, this);
                 lineTracking_sub = nh.subscribe("/was_sensor/lineTracking",
                                                 1000, &was_master::lineTracking_cb, this);
-                movement_sub = nh.subscribe("was_control/moving",
+                movement_sub = nh.subscribe("was_control/movement",
                                         1000, &was_master::movement_cb, this);
-                lifting_sub = nh.subscribe("was_control/lifting",
-                                        1000, &was_master::lifting_cb, this);
+                lift_sub = nh.subscribe("was_control/lift",
+                                        1000, &was_master::lift_cb, this);
         }
 
 void was_master::range_cb(const std_msgs::UInt16MultiArray::ConstPtr& msg) {
@@ -27,6 +27,6 @@ void was_master::movement_cb(const std_msgs::String::ConstPtr& cmd) {
         std::cout << cmd->data << std::endl;
 }
 
-void was_master::lifting_cb(const std_msgs::String::ConstPtr& cmd) {
-	std::cout << cmd->data << std::endl;
+void was_master::lift_cb(const std_msgs::String::ConstPtr& cmd) {
+        std::cout << cmd->data << std::endl;
 }

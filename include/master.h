@@ -16,8 +16,8 @@ private:
         ros::Subscriber movement_sub;
         void movement_cb(const std_msgs::String::ConstPtr& cmd);
         
-        ros::Subscriber lifting_sub;
-        void lifting_cb(const std_msgs::String::ConstPtr& cmd);
+        ros::Subscriber lift_sub;
+        void lift_cb(const std_msgs::String::ConstPtr& cmd);
 
 public:
         was_master(void);       

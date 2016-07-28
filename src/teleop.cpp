@@ -3,6 +3,7 @@
 #include <signal.h>
 #include <termios.h>
 #include <stdio.h>
+#include "teleop.h"
 
 // For moving
 #define KEYCODE_RIGHT           0x64    // D
@@ -19,48 +20,14 @@
 
 // #define WAS_DEBUG
 
-class was_teleop
-{
-public:
-        was_teleop();
-        void keyLoop();
-
-private:
-        ros::NodeHandle nh_;
-        ros::Publisher movement_pub_;
-        ros::Publisher lift_pub_;
-};
+int kfd = 0;
+struct termios cooked, raw;
 
 was_teleop::was_teleop()
 {
         movement_pub_ = nh_.advertise<std_msgs::String>("was_teleop/movement", 1);
         lift_pub_ = nh_.advertise<std_msgs::String>("was_teleop/lift", 1);
 }
-
-int kfd = 0;
-struct termios cooked, raw;
-
-void quit(int sig)
-{
-        (void)sig;
-        tcsetattr(kfd, TCSANOW, &cooked);
-        ros::shutdown();
-        exit(0);
-}
-
-
-int main(int argc, char** argv)
-{
-        ros::init(argc, argv, "was_teleop");
-        was_teleop teleop_cmd;
-
-        signal(SIGINT,quit);
-
-        teleop_cmd.keyLoop();
-
-        return(0);
-}
-
 
 void was_teleop::keyLoop()
 {
@@ -153,4 +120,12 @@ void was_teleop::keyLoop()
                         is_lifting=false;
                 }
         }
+}
+
+void quit(int sig)
+{
+        (void)sig;
+        tcsetattr(kfd, TCSANOW, &cooked);
+        ros::shutdown();
+        exit(0);
 }

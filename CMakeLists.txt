@@ -134,7 +134,8 @@ add_executable(was_master
 		src/was_master.cpp
 		src/master.cpp
 	)
-add_executable(teleop
+add_executable(was_teleop
+		src/was_teleop.cpp
 		src/teleop.cpp
 	)
 
@@ -147,7 +148,7 @@ target_link_libraries(was_master
   ${catkin_LIBRARIES}
 )
 
-target_link_libraries(teleop
+target_link_libraries(was_teleop
   ${catkin_LIBRARIES}
 )
 

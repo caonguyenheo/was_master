@@ -19,6 +19,8 @@ private:
         ros::Subscriber lift_sub;
         void lift_cb(const std_msgs::String::ConstPtr& cmd);
 
+        ros::Publisher lift_pub;
+
 public:
-        was_master(void);       
+        was_master(void);
 };

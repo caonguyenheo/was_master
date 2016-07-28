@@ -143,7 +143,7 @@ add_executable(teleop
 # add_dependencies(was_master_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(master
+target_link_libraries(was_master
   ${catkin_LIBRARIES}
 )
 

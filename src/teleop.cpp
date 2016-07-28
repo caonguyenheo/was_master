@@ -17,6 +17,8 @@
 // For both lift and moving
 #define KEYCODE_STOP            0x20    // SPACE
 
+// #define WAS_DEBUG
+
 class was_teleop
 {
 public:
@@ -34,8 +36,8 @@ private:
 
 was_teleop::was_teleop()
 {
-        movement_pub_ = nh_.advertise<std_msgs::String>("was_control/movement", 1);
-        lift_pub_ = nh_.advertise<std_msgs::String>("was_control/lift", 1);
+        movement_pub_ = nh_.advertise<std_msgs::String>("was_teleop/movement", 1);
+        lift_pub_ = nh_.advertise<std_msgs::String>("was_teleop/lift", 1);
 }
 
 int kfd = 0;
@@ -96,7 +98,9 @@ void was_teleop::keyLoop()
 
                 ROS_DEBUG("value: 0x%02X\n", c);
 
+#ifdef  WAS_DEBUG
                 std::cout << "Pressing: " << std::hex << std::showbase << (int) c << std::endl;
+#endif
 
                 switch(c)
                 {
@@ -133,6 +137,7 @@ void was_teleop::keyLoop()
                         case KEYCODE_STOP:
                                 ROS_DEBUG("STOP");
                                 movement_cmd = "STOP";
+                                lift_cmd = "STOP";
                                 is_moving = true;
                                 is_lifting = true;
                                 break;

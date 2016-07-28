@@ -26,12 +26,9 @@ public:
         void keyLoop();
 
 private:
-
-
         ros::NodeHandle nh_;
         ros::Publisher movement_pub_;
         ros::Publisher lift_pub_;
-
 };
 
 was_teleop::was_teleop()
@@ -142,7 +139,6 @@ void was_teleop::keyLoop()
                                 is_lifting = true;
                                 break;
                 }
-
 
                 if (is_moving) {
                         std_msgs::String cmd;

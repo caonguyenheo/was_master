@@ -4,11 +4,18 @@
 #include <termios.h>
 #include <stdio.h>
 
-#define KEYCODE_RIGHT   0x43    //RIGHT_ARROW
-#define KEYCODE_LEFT    0x44    //LEFT_ARROW
-#define KEYCODE_UP      0x41    //UP_ARROW
-#define KEYCODE_DOWN    0x42    //DOWN_ARROW
-#define KEYCODE_STOP    0x20    //SPACE
+// For moving
+#define KEYCODE_RIGHT           0x64    // D
+#define KEYCODE_LEFT            0x61    // A
+#define KEYCODE_FORWARD         0x77    // W
+#define KEYCODE_BACKWARD        0x73    // S
+
+// For lifting
+#define KEYCODE_UP              0x65    // E
+#define KEYCODE_DOWN            0x63    // C
+
+// For both lifting and moving
+#define KEYCODE_STOP            0x20    // SPACE
 
 class was_teleop
 {
@@ -20,13 +27,15 @@ private:
 
 
         ros::NodeHandle nh_;
-        ros::Publisher command_pub_;
+        ros::Publisher movement_pub_;
+        ros::Publisher lifting_pub_;
 
 };
 
 was_teleop::was_teleop()
 {
-        command_pub_ = nh_.advertise<std_msgs::String>("was_control/moving", 1);
+        movement_pub_ = nh_.advertise<std_msgs::String>("was_control/moving", 1);
+        lifting_pub_ = nh_.advertise<std_msgs::String>("was_control/lifting", 1);
 }
 
 int kfd = 0;
@@ -57,7 +66,8 @@ int main(int argc, char** argv)
 void was_teleop::keyLoop()
 {
         char c;
-        bool dirty=false;
+        bool is_moving=false;
+        bool is_lifting=false;
 
 
         // get the console in raw mode
@@ -73,7 +83,8 @@ void was_teleop::keyLoop()
         puts("---------------------------");
         puts("Use arrow keys to move the turtle.");
 
-        std::string string_cmd;
+        std::string moving_cmd;
+        std::string lifting_cmd;
         while(1)
         {
                 // get the next event from the keyboard
@@ -91,38 +102,54 @@ void was_teleop::keyLoop()
                 {
                         case KEYCODE_LEFT:
                                 ROS_DEBUG("LEFT");
-                                string_cmd = "LEFT";
-                                dirty = true;
+                                moving_cmd = "LEFT";
+                                is_moving = true;
                                 break;
                         case KEYCODE_RIGHT:
                                 ROS_DEBUG("RIGHT");
-                                string_cmd = "RIGHT";
-                                dirty = true;
+                                moving_cmd = "RIGHT";
+                                is_moving = true;
+                                break;
+                        case KEYCODE_FORWARD:
+                                ROS_DEBUG("FORWARD");
+                                moving_cmd = "FORWARD";
+                                is_moving = true;
+                                break;
+                        case KEYCODE_BACKWARD:
+                                ROS_DEBUG("BACKWARD");
+                                moving_cmd = "BACKWARD";
+                                is_moving = true;
                                 break;
                         case KEYCODE_UP:
-                                ROS_DEBUG("UP");
-                                string_cmd = "UP";
-                                dirty = true;
+                                ROS_DEBUG("LIFT_UP");
+                                lifting_cmd = "LIFT_UP";
+                                is_lifting = true;
                                 break;
                         case KEYCODE_DOWN:
-                                ROS_DEBUG("DOWN");
-                                string_cmd = "DOWN";
-                                dirty = true;
+                                ROS_DEBUG("LIFT_DOWN");
+                                lifting_cmd = "LIFT_DOWN";
+                                is_lifting = true;
                                 break;
                         case KEYCODE_STOP:
                                 ROS_DEBUG("STOP");
-                                string_cmd = "STOP";
-                                dirty = true;
+                                moving_cmd = "STOP";
+                                is_moving = true;
+                                is_lifting = true;
                                 break;
                 }
 
 
-                std_msgs::String cmd;
-                cmd.data = string_cmd;
-                if(dirty)
-                {
-                        command_pub_.publish(cmd);
-                        dirty=false;
+                if (is_moving) {
+                        std_msgs::String cmd;
+                        cmd.data = moving_cmd;
+                        movement_pub_.publish(cmd);
+                        is_moving=false;
+                }
+                if (is_lifting) {
+                        std_msgs::String cmd;
+                        cmd.data = lifting_cmd;
+                        lifting_pub_.publish(cmd);
+                        is_lifting=false;
                 }
         }
 }

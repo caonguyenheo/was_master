@@ -1,6 +1,7 @@
 #include "ros/ros.h"
 #include "teleop.h"
 #include <termios.h>
+#include <signal.h>
 
 int main(int argc, char** argv)
 {

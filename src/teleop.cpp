@@ -25,8 +25,8 @@ struct termios cooked, raw;
 
 was_teleop::was_teleop()
 {
-        movement_pub_ = nh_.advertise<std_msgs::String>("was_teleop/movement", 1);
-        lift_pub_ = nh_.advertise<std_msgs::String>("was_teleop/lift", 1);
+        movement_pub = nh.advertise<std_msgs::String>("was_teleop/movement", 1);
+        lift_pub = nh.advertise<std_msgs::String>("was_teleop/lift", 1);
 }
 
 void was_teleop::keyLoop()
@@ -110,13 +110,13 @@ void was_teleop::keyLoop()
                 if (is_moving) {
                         std_msgs::String cmd;
                         cmd.data = movement_cmd;
-                        movement_pub_.publish(cmd);
+                        movement_pub.publish(cmd);
                         is_moving=false;
                 }
                 if (is_lifting) {
                         std_msgs::String cmd;
                         cmd.data = lift_cmd;
-                        lift_pub_.publish(cmd);
+                        lift_pub.publish(cmd);
                         is_lifting=false;
                 }
         }

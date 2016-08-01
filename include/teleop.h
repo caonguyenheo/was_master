@@ -7,9 +7,9 @@ public:
         void keyLoop();
 
 private:
-        ros::NodeHandle nh_;
-        ros::Publisher movement_pub_;
-        ros::Publisher lift_pub_;
+        ros::NodeHandle nh;
+        ros::Publisher movement_pub;
+        ros::Publisher lift_pub;
 };
 
 void quit(int sig);

@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/UInt32.h"
-#include "std_msgs/Uint16MultiArray.h"
+#include "std_msgs/UInt16MultiArray.h"
 #include "std_msgs/String.h"
 
 class was_master{

@@ -16,9 +16,9 @@ was_master::was_master(void) {
         }
 
 void was_master::range_cb(const std_msgs::UInt16MultiArray::ConstPtr& msg) {
-        for (int i = 0; i < 5; ++i)
+        for (int i = 0; i < msg->data.size(); i++)
         {
-        	std::cout << "Rng[" << i << "]: " << msg->data[i] << " | ";
+        	std::cout << "Rng[" << i << "]: " << msg->data.at(i) << " | ";
         }
         std::cout << std::endl;
 }
